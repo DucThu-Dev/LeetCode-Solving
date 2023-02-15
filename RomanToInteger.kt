@@ -1,42 +1,23 @@
-import java.lang.IllegalArgumentException
-
 class RomanToInteger {
-    companion object {
-        val subtractionSymbols: List<String> = listOf("I", "X", "C");
-    }
-
     fun romanToInt(s: String): Int {
-        var result: Int = 0
-        var remain: String = s
-        var currentSymbols: String = ""
-
-        while (remain.isNotEmpty()) {
-            currentSymbols = remain.substring(0, 1);
-            remain.drop(1);
-
-            if(shouldPickNextChar(currentSymbols))
+        val map = mapOf(
+                'I' to 1,
+                'V' to 5,
+                'X' to 10,
+                'L' to 50,
+                'C' to 100,
+                'D' to 500,
+                'M' to 1000
+        )
+        var result = 0
+        var prev = 0
+        for (i in s.length - 1 downTo 0) {
+            val curr = map[s[i]] ?: return 0
+            if (curr < prev) result -= curr
+            else result += curr
+            prev = curr
         }
-
-        return result;
+        return result
     }
 
-    fun convertRomanToInt(char: String): Int {
-        return when(char) {
-            "I" -> 1
-            "II" -> 2
-            "III" -> 3
-            "IV" -> 4
-            "V" -> 5
-            "X" -> 10
-            "L" -> 50
-            "C" -> 100
-            "D" -> 500
-            "M" -> 1000
-            else -> throw IllegalArgumentException("Invalid Roman symbol!")
-        }
-    }
-
-    private fun shouldPickNextChar(char: String): Boolean {
-        return subtractionSymbols.contains(char)
-    }
 }
