@@ -17,7 +17,7 @@ fun treeNodeTravel(node: TreeNode, currentNodeLength: Int, dataHolder: DataHolde
     }
 
     if (node.right == null && node.left == null) {
-        if(currentNodeLength > dataHolder.max) {
+        if (currentNodeLength > dataHolder.max) {
             dataHolder.max = currentNodeLength
         }
     }
@@ -28,4 +28,13 @@ data class DataHolder(var max: Int)
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
     var right: TreeNode? = null
+}
+
+/**
+ * Better Version
+ */
+fun maxDepth1(root: TreeNode?): Int {
+    if(root == null) return 0
+    if(root.left == null && root.right == null) return 1
+    return Math.max(maxDepth(root.left), maxDepth(root.right))
 }
