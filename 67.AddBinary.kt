@@ -1,4 +1,6 @@
 fun addBinary(a: String, b: String): String {
+    if (a == "0") return b
+    if (b == "0") return a
     val aLength = a.length
     val bLength = b.length
     val largestLength = if (aLength > bLength) aLength else bLength
@@ -43,4 +45,8 @@ fun addBinary(a: String, b: String): String {
     }
 
     return result.reversed().toString()
+}
+
+fun addBinary1(a: String, b: String): String {
+    return (a.toBigInteger(2) + b.toBigInteger(2)).toString(2)
 }
