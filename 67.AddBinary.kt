@@ -1,10 +1,12 @@
 fun addBinary(a: String, b: String): String {
-    val largestLength = if (a.length > b.length) a.length else b.length
+    val aLength = a.length
+    val bLength = b.length
+    val largestLength = if (aLength > bLength) aLength else bLength
     val result = StringBuffer()
     var lastSumRem = "0";
-    for (i in (0 until largestLength).reversed()) {
-        val aNum = a.getOrNull(i)
-        val bNum = b.getOrNull(i)
+    for (i in 0 until largestLength) {
+        val aNum = a.getOrNull(aLength - i - 1)
+        val bNum = b.getOrNull(bLength - i - 1)
         when ("${aNum ?: ""}${bNum ?: ""}") {
             "00", "0" -> {
                 if (lastSumRem == "0") {
@@ -27,13 +29,17 @@ fun addBinary(a: String, b: String): String {
 
             "11" -> {
                 if (lastSumRem == "0") {
-                    result.append("")
+                    result.append("0")
                 } else {
                     result.append("1")
                 }
                 lastSumRem = "1"
             }
         }
+    }
+
+    if (lastSumRem == "1") {
+        result.append("1")
     }
 
     return result.reversed().toString()
