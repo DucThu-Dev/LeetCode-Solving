@@ -25,10 +25,6 @@ fun treeNodeTravel(node: TreeNode, currentNodeLength: Int, dataHolder: DataHolde
 
 data class DataHolder(var max: Int)
 
-class TreeNode(var `val`: Int) {
-    var left: TreeNode? = null
-    var right: TreeNode? = null
-}
 
 /**
  * Better Version
