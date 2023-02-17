@@ -27,3 +27,20 @@ fun longestCommonPrefix(strs: Array<String>): String {
 
     return sb.toString()
 }
+
+fun longestCommonPrefix1(strs: Array<String>): String {
+    var res = ""
+
+    for (i in 0..strs[0].lastIndex) {
+
+        for (s in strs) {
+            if (i >= s.length || s[i] != strs[0][i]) {
+                return res
+            }
+        }
+
+        res += strs[0][i]
+    }
+
+    return res
+}
