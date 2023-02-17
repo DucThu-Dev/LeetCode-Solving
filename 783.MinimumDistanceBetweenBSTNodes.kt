@@ -29,3 +29,24 @@ fun checkEachNodeWithSequenceValues(node: TreeNode?, numChecks: Array<Int>): Int
 
     return Math.min(minDiffLeft, minDiffRight)
 }
+
+/**
+ * Apply Inorder Traversal in BST
+ */
+fun minDiffInBST1(root: TreeNode?): Int {
+    var res: Int = Int.MAX_VALUE
+    var prev: Int? = null
+
+    fun travelBST(node: TreeNode?): Int {
+        if (node == null) return Int.MAX_VALUE
+
+        if (node.left != null) travelBST(node.left)
+        if (prev != null) res = Math.min(res, res - node.`val`)
+        prev = node.`val`
+        if (node.right != null) travelBST(node.right)
+
+        return res
+    }
+
+    return travelBST(root)
+}
