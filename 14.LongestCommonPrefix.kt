@@ -1,21 +1,27 @@
 import java.lang.StringBuilder
 
 fun longestCommonPrefix(strs: Array<String>): String {
+    if (strs.contains("")) return ""
     val sb = StringBuilder()
     var stillMatch = true
     var i = 0
     while (stillMatch) {
-        val currentChar = strs.first()[i]
-        for (j in 1 until strs.size) {
-            if (strs[j][i] != currentChar) {
-                stillMatch = false
-                break
+        if (strs.first().length > i) {
+            val currentChar = strs.first()[i]
+            for (j in 1 until strs.size) {
+                if (!(strs[j].length > i && strs[j][i] == currentChar)) {
+                    stillMatch = false
+                    break
+                }
             }
-        }
 
-        if (stillMatch) {
-            sb.append(currentChar)
-            i++
+
+            if (stillMatch) {
+                sb.append(currentChar)
+                i++
+            }
+        } else {
+            stillMatch = false
         }
     }
 
