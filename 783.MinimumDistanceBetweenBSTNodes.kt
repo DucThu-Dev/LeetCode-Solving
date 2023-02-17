@@ -1,10 +1,31 @@
-fun minDiffInBST(root: TreeNode?): Int {
-    if (root == null || (root.left == null && root.right == null)) return Int.MAX_VALUE
-    var minDiff: Int = Int.MAX_VALUE
-    if (root.left != null) minDiff = root.`val` - root.left!!.`val`
-    if (root.right != null) {
-        minDiff = Math.min(root.right!!.`val` - root.`val`, minDiff)
+import java.util.LinkedList
 
+fun minDiffInBST(root: TreeNode?): Int {
+    return checkEachNodeWithSequenceValues(root, arrayOf())
+}
+
+fun checkEachNodeWithSequenceValues(node: TreeNode?, numChecks: Array<Int>): Int {
+    if (node == null || (node.left == null && node.right == null)) return Int.MAX_VALUE
+
+    var minDiffLeft = Int.MAX_VALUE
+    var minDiffRight = Int.MAX_VALUE
+    val numChecksAndNodeValue = arrayOf(*numChecks, node.`val`)
+    if (node.left != null) {
+        for (n in numChecksAndNodeValue) {
+            val diff = Math.abs(node.left!!.`val` - n)
+            minDiffLeft = if (diff < minDiffLeft) diff else minDiffLeft
+        }
+        minDiffLeft = Math.min(minDiffLeft, checkEachNodeWithSequenceValues(node.left, numChecksAndNodeValue))
     }
-    return Math.min(Math.min(minDiffInBST(root.left), minDiffInBST(root.right)), minDiff)
+
+    if (node.right != null) {
+
+        for (n in numChecksAndNodeValue) {
+            val diff = Math.abs(n - node.right!!.`val`)
+            minDiffRight = if (diff < minDiffRight) diff else minDiffRight
+        }
+        minDiffRight = Math.min(minDiffRight, checkEachNodeWithSequenceValues(node.right, numChecksAndNodeValue))
+    }
+
+    return Math.min(minDiffLeft, minDiffRight)
 }
