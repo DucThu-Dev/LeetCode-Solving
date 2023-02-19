@@ -30,7 +30,7 @@ fun zigzagLevelOrder(root: TreeNode?): List<List<Int>> {
             }
         }
 
-        res.add(resInner)
+        if(resInner.isNotEmpty()) res.add(resInner)
         currentLevelNodesQueue = remNextLevelNodesQueue.reversed()
         remNextLevelNodesQueue = mutableListOf()
         currentLevel++
