@@ -1,24 +1,21 @@
 fun singleNonDuplicate(nums: IntArray): Int {
     if (nums.size == 1) return nums.first()
     if (nums.first() != nums[1]) return nums.first()
+    if (nums.last() != nums[nums.lastIndex - 1]) return nums.last()
 
     var startIndex = 0
     var endIndex = nums.lastIndex
 
-    while (startIndex != endIndex) {
+    while (startIndex < endIndex) {
         var middleIndex: Int = (endIndex - startIndex) / 2 + startIndex
-        if (middleIndex % 2 == 1) middleIndex - 1
-        val middleNum = nums[middleIndex]
+        if (middleIndex % 2 == 1) middleIndex--
 
-        if (middleNum == nums[middleIndex + 1]) {
+        if (nums[middleIndex] == nums[middleIndex + 1]) {
             startIndex = middleIndex + 2
-        } else if (middleNum == nums[middleIndex - 1]) {
-            endIndex = middleIndex - 2
         } else {
-            return middleNum
+            endIndex = middleIndex
         }
     }
-
     return nums[startIndex]
 }
 
