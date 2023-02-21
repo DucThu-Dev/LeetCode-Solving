@@ -9,7 +9,7 @@ fun singleNonDuplicate(nums: IntArray): Int {
 
         if (checkLeftSide) {
             if (middleNum == nums[middle - 1]) {
-                start = middleNum + 1
+                start = middle + 1
             } else if (middleNum == nums[middle + 1]) {
                 end = middle - 1
             } else {
@@ -27,4 +27,18 @@ fun singleNonDuplicate(nums: IntArray): Int {
     }
 
     return start
+}
+
+fun singleNonDuplicate1(nums: IntArray): Int {
+    if(nums.size == 1) return nums.first()
+    if(nums.first() != nums[1]) return nums.first()
+    var i = 1
+    while (i < nums.lastIndex) {
+        if (nums[i] == nums[i - 1] || nums[i] == nums[i + 1]) {
+            i++
+        } else {
+            return nums[i]
+        }
+    }
+    return nums[i]
 }
