@@ -10,7 +10,7 @@ fun shipWithinDays(weights: IntArray, days: Int): Int {
         var countDay: Int = 1
         for (w in weights) {
             val nextSumWeight = sumWeight + w
-            sumWeight = if (nextSumWeight < middleWeight) {
+            sumWeight = if (nextSumWeight <= middleWeight) {
                 nextSumWeight
             } else {
                 countDay++
@@ -21,7 +21,7 @@ fun shipWithinDays(weights: IntArray, days: Int): Int {
         if (countDay <= days) {
             rWeight = middleWeight
         } else {
-            lWeight = middleWeight
+            lWeight = middleWeight + 1
         }
     }
 
