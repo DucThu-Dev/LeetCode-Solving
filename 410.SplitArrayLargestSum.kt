@@ -1,28 +1,25 @@
 fun splitArray(nums: IntArray, k: Int): Int {
-
-    var rNum = nums.count() ?: 0
+    var rNum = nums.sum() ?: 0
     var lNum = nums.max() ?: 0
 
-    if (k == 1) return rNum
-
+    if (nums.size == 1) return rNum
     fun feasible(largest: Int): Boolean {
         var subCount = 1
         var total = 0
         for (n in nums) {
-            subCount += n
-            if (subCount > largest) {
-                subCount = n
-                total++
-                if (n > k) return false
+            total += n
+            if (total > largest) {
+                total = n
+                if (++subCount > k) return false
             }
         }
+
         return true
     }
 
     while (lNum < rNum) {
         val midNum = lNum + (rNum - lNum) / 2
-        var feasible = feasible(midNum)
-        if (feasible) {
+        if (feasible(midNum)) {
             rNum = midNum
         } else {
             lNum = midNum + 1
