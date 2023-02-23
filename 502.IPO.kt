@@ -1,42 +1,56 @@
+import java.util.PriorityQueue
+
 fun findMaximizedCapital(k: Int, w: Int, profits: IntArray, capital: IntArray): Int {
     var remainProject = k
-    val profitsList = profits.toMutableList()
-    val capitalList = capital.toMutableList()
+    var profitsList = profits.toMutableList()
+    var capitalList = capital.toMutableList()
     var currentW = w
+    val priorityQueue = PriorityQueue<Int> { o1, o2 -> if ((o1 ?: 0) < (o2 ?: 0)) 1 else -1 }
+    var canProcess = true
 
     fun getFeasibleCapital(): Int? {
-        var maxBenefit = 0
-        var maxIndex: Int? = null
-
+        val remainProfitsList = mutableListOf<Int>()
+        val remainCapitalList = mutableListOf<Int>()
         for (pIndex in profitsList.indices) {
-            println("pIndex $pIndex")
             if (capitalList[pIndex] <= currentW) {
-                if (profitsList[pIndex] > maxBenefit) {
-                    maxBenefit = profitsList[pIndex]
-                    maxIndex = pIndex
-                }
+                priorityQueue.add(profitsList[pIndex])
+            } else {
+                remainCapitalList.add(capitalList[pIndex])
+                remainProfitsList.add(profitsList[pIndex])
             }
         }
-        return if (maxIndex != null) {
-            val result = profitsList[maxIndex]
-            profitsList.removeAt(maxIndex)
-            capitalList.removeAt(maxIndex)
-            result
-        } else {
-            null
+
+        if(priorityQueue.isEmpty()) {
+            canProcess = false
         }
+
+        profitsList = remainProfitsList
+        capitalList = remainCapitalList
+
+        return priorityQueue.poll()
     }
 
-    while (remainProject > 0 && profitsList.isNotEmpty()) {
-        println("Current profitsList length is ${profitsList.size} ${capitalList.size}")
-        currentW += getFeasibleCapital() ?: 0
-        remainProject--
-    }
+    do {
+        val result = getFeasibleCapital()
+        if (result != null) {
+            println("Result is $result")
+            currentW += result
+            remainProject--
+        }
+    } while (remainProject > 0 && canProcess)
 
     return currentW
 }
 
 fun main() {
-    val result = findMaximizedCapital(2, 0, intArrayOf(1, 2, 3), intArrayOf(0, 1, 1))
-    println(result)
+    val priorityQueue = PriorityQueue<Int> { o1, o2 -> if ((o1 ?: 0) < (o2 ?: 0)) 1 else -1 }
+    priorityQueue.add(5)
+    priorityQueue.add(500)
+    priorityQueue.add(250)
+    priorityQueue.add(50)
+    priorityQueue.add(10)
+    while (priorityQueue.isNotEmpty()) {
+        val result = priorityQueue.poll()
+        println("Result is $result")
+    }
 }
