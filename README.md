@@ -1,9 +1,7 @@
-<br />
+# My Daily LeetCode Solving Repository
 <div align="center">
 <img src="assets/leetcode.png" alt="LeetCode"  width="240"  height="160">
 </div>
-
-# My Daily LeetCode Solving Repository
 
 This repository is a collection of code files that I create and save regularly. It is hosted on Github publicly. The
 purpose of this repository is to track my progress in my coding journey, document my learning, and share my solutions
