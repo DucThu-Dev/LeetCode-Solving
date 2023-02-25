@@ -17,3 +17,21 @@ fun removeDuplicates(nums: IntArray): Int {
 
     return result
 }
+
+/// Better solution
+fun removeDuplicates0(nums: IntArray): Int {
+    if (nums.isEmpty()) return 0
+
+    var pointer = 0
+    var resultCount = 1
+
+    for (i in 1..nums.lastIndex) {
+        if (nums[pointer] != nums[i]) {
+            pointer++
+            resultCount++
+            nums[pointer] = nums[i]
+        }
+    }
+
+    return resultCount
+}
