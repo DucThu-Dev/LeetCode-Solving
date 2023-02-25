@@ -1,3 +1,5 @@
+package L1_999
+
 fun lengthOfLongestSubstring(s: String): Int {
     if (s.isEmpty()) return 0
     if (s.length == 1) return 1
