@@ -1,6 +1,6 @@
 # My Daily LeetCode Solving Repository
 <div align="center">
-<img src="assets/leetcode.png" alt="LeetCode"  width="240"  height="160">
+<img src="assets/leetcode.png" alt="LeetCode"  width="160"  height="160">
 </div>
 
 This repository is a collection of code files that I create and save regularly. It is hosted on Github publicly. The
