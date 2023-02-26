@@ -6,27 +6,36 @@ fun minDistance(word1: String, word2: String): Int {
 }
 
 fun minDistanceLeftToRight(word1: String, word2: String): Int {
-    // Count total char match from word1 to word2
-    var totalMatchInOrder = 0
-    var lastMatchIndex = 0
-    var consecutiveUnMatchCount = 0
+    // Pair with index of word1 - word2
+    var firstMatchIndex: Pair<Int, Int>? = null
+    var lastMatchIndex: Pair<Int, Int>? = null
+
+    var startIndexWord2 = 0
     var taskToDoCount = 0
 
     for (i in word1.indices) {
-        for (j in lastMatchIndex + 1 until word2.length) {
+        for (j in startIndexWord2..word2.lastIndex) {
             if (word1[i] == word2[j]) {
-                if (j - lastMatchIndex - 1 > consecutiveUnMatchCount) {
-                    taskToDoCount += j - lastMatchIndex - consecutiveUnMatchCount - 1
+                if (firstMatchIndex == null) firstMatchIndex = Pair(i, j)
+
+                if (lastMatchIndex != null) {
+                    taskToDoCount += Math.max(i - lastMatchIndex.first - 1, j - lastMatchIndex.second - 1)
                 }
-                lastMatchIndex = j
-                totalMatchInOrder++
-                consecutiveUnMatchCount = 0
+
+                lastMatchIndex = Pair(i, j)
+                startIndexWord2 = j + 1
                 break
-            } else if (j == word2.lastIndex) {
-                consecutiveUnMatchCount++
             }
         }
     }
 
-    return word1.length - totalMatchInOrder
+    /// Handle case don't have any match char
+    if (firstMatchIndex == null) {
+        return Math.max(word1.length, word2.length)
+    }
+
+    taskToDoCount += Math.max(firstMatchIndex.first, firstMatchIndex.second)
+    taskToDoCount += Math.max((word1.lastIndex - lastMatchIndex!!.first), (word2.lastIndex - lastMatchIndex.second))
+
+    return taskToDoCount
 }
