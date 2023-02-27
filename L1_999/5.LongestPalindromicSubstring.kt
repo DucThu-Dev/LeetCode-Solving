@@ -5,7 +5,7 @@ fun longestPalindrome(s: String): String {
     var longest = ""
 
     for (i in 0 until s.lastIndex) {
-        for (j in i + 1..s.lastIndex) {
+        for (j in i..s.lastIndex) {
             if (s[i] == s[j] && j - i + 1 > longest.length) {
                 val isPal = isPalindromic(s.substring(i, j + 1))
                 if (isPal) {
