@@ -1,4 +1,44 @@
 fun sortArray(nums: IntArray): IntArray {
+    if (nums.size <= 1) return nums
+    val pivot = nums.size / 2
+    val leftArray = sortArray(nums.slice(0 until pivot).toIntArray())
+    val rightArray = sortArray(nums.slice(pivot until nums.size).toIntArray())
+
+    return mergeSortArray(leftArray, rightArray)
+}
+
+fun mergeSortArray(leftArray: IntArray, rightArray: IntArray): IntArray {
+    val resultArray = mutableListOf<Int>()
+    var leftIndex = 0
+    var rightIndex = 0
+
+    while (leftIndex < leftArray.size && rightIndex < rightArray.size) {
+        if (leftArray[leftIndex] < rightArray[rightIndex]) {
+            resultArray.add(leftArray[leftIndex])
+            leftIndex++
+        } else {
+            resultArray.add(rightArray[rightIndex])
+            rightIndex++
+        }
+    }
+
+    while (leftIndex < leftArray.size) {
+        resultArray.add(leftArray[leftIndex])
+        leftIndex++
+    }
+
+    while (rightIndex < rightArray.size) {
+        resultArray.add(rightArray[rightIndex])
+        rightIndex++
+    }
+
+    return resultArray.toIntArray()
+}
+
+/**
+ * Quick sort
+ */
+fun quickSortArray(nums: IntArray): IntArray {
     if (nums.isEmpty() || nums.size == 1) return nums
     val nums = nums.toMutableList()
     var currentIndex = 0
@@ -17,9 +57,9 @@ fun sortArray(nums: IntArray): IntArray {
     }
 
     return intArrayOf(
-        *sortArray(nums.subList(0, pivotIndex).toIntArray()),
+        *quickSortArray(nums.subList(0, pivotIndex).toIntArray()),
         pivotValue,
-        * sortArray(nums.subList(pivotIndex + 1, nums.size).toIntArray())
+        * quickSortArray(nums.subList(pivotIndex + 1, nums.size).toIntArray())
     )
 }
 
@@ -40,5 +80,5 @@ fun sortArrayOriginal(nums: IntArray): IntArray {
         }
     }
 
-    return intArrayOf(*sortArray(leftNums.toIntArray()), pivotValue, *sortArray(rightNums.toIntArray()))
+    return intArrayOf(*sortArrayOriginal(leftNums.toIntArray()), pivotValue, *sortArrayOriginal(rightNums.toIntArray()))
 }
