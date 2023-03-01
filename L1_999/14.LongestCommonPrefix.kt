@@ -15,7 +15,6 @@ fun longestCommonPrefix(strs: Array<String>): String {
                 }
             }
 
-
             if (stillMatch) {
                 sb.append(currentChar)
                 i++
