@@ -1,5 +1,4 @@
 fun compress(chars: CharArray): Int {
-    println(chars)
     var rem = 0
     var currentChar = chars.first()
     var charCount = 1
@@ -7,11 +6,23 @@ fun compress(chars: CharArray): Int {
         if (c == currentChar) {
             charCount++
         } else {
+            chars[rem++] = currentChar
+            if (charCount > 1) {
+                val countText = charCount.toString()
+                for (i in countText) {
+                    chars[rem++] = i
+                }
+            }
             currentChar = c
             charCount = 1
-            rem += if (charCount > 1) charCount.toString().length + 1 else 1
         }
     }
-    rem += if (charCount > 0) charCount.toString().length + 1 else 1
+    chars[rem++] = currentChar
+    if (charCount > 1) {
+        val countText = charCount.toString()
+        for (i in countText) {
+            chars[rem++] = i
+        }
+    }
     return rem
 }
