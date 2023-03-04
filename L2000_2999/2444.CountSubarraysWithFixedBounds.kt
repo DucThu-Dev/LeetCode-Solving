@@ -1,37 +1,26 @@
-import kotlin.math.max
-
 fun countSubarrays(nums: IntArray, minK: Int, maxK: Int): Long {
     var count = 0L
-    var index = 0
+    var start = 0
+    var iLastMin: Int = -1
+    var iLastMax: Int = -1
 
-    var hasMin: Boolean = false
-    var hasMax: Boolean = false
-    var didRequestCheckSubArray = false
-
-    while (index < nums.size) {
-        val currentNum = nums[index]
+    for (i in 0..nums.lastIndex) {
+        val currentNum = nums[i]
         if (currentNum > maxK || currentNum < minK) {
-            hasMin = false
-            hasMax = false
+            start = i + 1
+            iLastMin = -1
+            iLastMax = -1
         } else {
-            if (currentNum == minK) {
-                hasMin = true
-                if (!didRequestCheckSubArray) {
-                    count += countSubarrays(nums.copyOfRange(index + 1, nums.size), minK, maxK)
-                    didRequestCheckSubArray = true
-                } else if (currentNum == maxK) {
-                    hasMax = true
-                    if (!didRequestCheckSubArray) {
-                        count += countSubarrays(nums.copyOfRange(index + 1, nums.size), minK, maxK)
-                        didRequestCheckSubArray = true
-                    }
-                }
+            if (currentNum == maxK) iLastMax = i
+            if (currentNum == minK) iLastMin = i
+
+            if (iLastMin >= 0 && iLastMax >= 0) {
+                val left = start
+                val right = Math.min(iLastMin, iLastMax)
+                count += right - left + 1
             }
-            if (hasMin && hasMax) count++
-            index++
         }
     }
-
     return count
 }
 
