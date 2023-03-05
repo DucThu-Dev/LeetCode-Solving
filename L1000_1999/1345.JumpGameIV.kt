@@ -141,3 +141,47 @@ fun minJumpsBreathFirstSearchPractice(arr: IntArray): Int {
     return -1
 }
 
+fun minJumpsBidirectionalBFSPractice(arr: IntArray): Int {
+    if (arr.size <= 1) return 0
+    if (arr.first() == arr.last()) return 1
+
+    val n = arr.size
+    val graph = mutableMapOf<Int, MutableList<Int>>()
+    for (i in arr.indices) graph.getOrElse(arr[i]) { mutableListOf<Int>().also { graph[arr[i]] = it } }.add(i)
+
+    var curr = mutableSetOf<Int>(0)
+    var other = mutableSetOf<Int>(n - 1)
+    val visited = mutableSetOf<Int>(0, n - 1)
+    var steps = 0
+
+    while (curr.isNotEmpty()) {
+        if (curr.size > other.size) curr = other.also { other = curr }
+        val next = mutableSetOf<Int>()
+        for (i in curr) {
+            for (j in graph[arr[i]]!!) {
+                if (other.contains(j)) return steps + 1
+                if (!visited.contains(j)) {
+                    visited.add(j)
+                    next.add(j)
+                }
+            }
+
+            graph[arr[i]]!!.clear()
+
+            if (other.contains(i + 1) || other.contains(i - 1)) return steps + 1
+            if (i + 1 < n && !visited.contains(i + 1)) {
+                visited.add(i + 1)
+                next.add(i + 1)
+            }
+            if (i - 1 >= 0 && !visited.contains(i - 1)) {
+                visited.add(i - 1)
+                next.add(i - 1)
+            }
+        }
+
+        curr = next
+        steps++
+    }
+
+    return -1
+}
