@@ -1,4 +1,4 @@
-fun minJumps(arr: IntArray): Int {
+fun minJumpsBreathFirstSearch(arr: IntArray): Int {
     if (arr.size <= 1) return 0
     if (arr.first() == arr.last()) return 1
     val n = arr.size
@@ -48,13 +48,53 @@ fun minJumps(arr: IntArray): Int {
     return -1
 }
 
-fun main() {
-    val result = minJumps(intArrayOf(100, -23, -23, 404, 100, 23, 23, 23, 3, 404))
+fun minJumpsBidirectionalBFS(arr: IntArray): Int {
+    if (arr.size <= 1) return 0
+    if (arr.first() == arr.last()) return 1
+    val n = arr.size
 
-    println(result)
+    val graph = mutableMapOf<Int, MutableList<Int>>()
+    for (i in arr.indices) graph.getOrElse(arr[i]) { mutableListOf<Int>().also { graph[arr[i]] = it } }.add(i)
+
+    var curr = mutableSetOf<Int>(0)
+    var other = mutableSetOf<Int>(n - 1)
+    val visited = mutableSetOf<Int>(0, n - 1)
+    var steps = 0
+
+    while (curr.isNotEmpty()) {
+        if (curr.size > other.size) {
+            curr = other.also { other = curr }
+        }
+        val nex = mutableSetOf<Int>()
+        for (i in curr) {
+            for (j in graph[arr[i]]!!) {
+                if (other.contains(j)) return steps + 1
+                if (!visited.contains(j)) {
+                    visited.add(j)
+                    nex.add(j)
+                }
+            }
+            graph[arr[i]]!!.clear()
+
+            if (other.contains(i + 1) || other.contains(i - 1)) return steps + 1
+
+            if (i + 1 < n && !visited.contains(i + 1)) {
+                visited.add(i + 1)
+                nex.add(i + 1)
+            }
+
+            if (i - 1 >= 0 && !visited.contains(i - 1)) {
+                visited.add(i - 1)
+                nex.add(i - 1)
+            }
+        }
+        curr = nex
+        steps++
+    }
+    return -1
 }
 
-fun minJumpsPractice(arr: IntArray): Int {
+fun minJumpsBreathFirstSearchPractice(arr: IntArray): Int {
     if (arr.size <= 1) return 0
     if (arr.first() == arr.last()) return 1
 
@@ -66,7 +106,7 @@ fun minJumpsPractice(arr: IntArray): Int {
     }
 
     var curs = mutableListOf<Int>(0)
-    val visited = mutableSetOf<Int>()
+    val visited = mutableSetOf<Int>(0)
     var steps = 0
 
     while (curs.isNotEmpty()) {
@@ -100,3 +140,4 @@ fun minJumpsPractice(arr: IntArray): Int {
 
     return -1
 }
+
