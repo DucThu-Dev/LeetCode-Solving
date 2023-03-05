@@ -25,6 +25,9 @@ fun minJumps(arr: IntArray): Int {
                 }
             }
 
+            /**
+             * NOTE: THIS IS IMPORTANT
+             */
             graph.get(arr[nodeIndex])!!.clear()
 
             if (nodeIndex + 1 < n && !visited.contains(nodeIndex + 1)) {
@@ -55,39 +58,43 @@ fun minJumpsPractice(arr: IntArray): Int {
     if (arr.size <= 1) return 0
     if (arr.first() == arr.last()) return 1
 
-    val arraySize = arr.size
+    val n = arr.size
     val graph = mutableMapOf<Int, MutableList<Int>>()
-    val visitedIndex = mutableSetOf<Int>()
-    var currents = mutableListOf<Int>(0)
-    var steps = 0
 
     for (i in arr.indices) {
         graph.getOrElse(arr[i]) { mutableListOf<Int>().also { graph[arr[i]] = it } }.add(i)
     }
 
-    while (currents.isNotEmpty()) {
-        val nextIndexs = mutableListOf<Int>()
+    var curs = mutableListOf<Int>(0)
+    val visited = mutableSetOf<Int>()
+    var steps = 0
 
-        for (index in currents) {
-            if (index == arraySize - 1) return steps
+    while (curs.isNotEmpty()) {
+        val nex = mutableListOf<Int>()
+        for (i in curs) {
+            if (i == n - 1) return steps
 
-            for (nodeIndex in graph[arr[index]]!!) {
-                nextIndexs.add(nodeIndex)
-                visitedIndex.add(nodeIndex)
+            for (j in graph[arr[i]]!!) {
+                if (!visited.contains(j)) {
+                    nex.add(j)
+                    visited.add(j)
+                }
             }
 
-            if (index + 1 < arraySize && !visitedIndex.contains(index + 1)) {
-                nextIndexs.add(index + 1)
-                visitedIndex.add(index + 1)
+            graph[arr[i]]!!.clear()
+
+            if (i + 1 < n && !visited.contains(i + 1)) {
+                visited.add(i + 1)
+                nex.add(i + 1)
             }
 
-            if (index - 1 >= 0 && !visitedIndex.contains(index - 1)) {
-                nextIndexs.add(index - 1)
-                visitedIndex.add(index - 1)
+            if (i - 1 >= 0 && !visited.contains(i - 1)) {
+                visited.add(i - 1)
+                nex.add(i - 1)
             }
         }
 
-        currents = nextIndexs
+        curs = nex
         steps++
     }
 
