@@ -10,3 +10,15 @@ fun maxArea(height: IntArray): Int {
 
     return max
 }
+
+fun maxAreaImprovement(height: IntArray): Int {
+    var max = 0
+    var start = 0
+    var end = height.lastIndex
+    while (start < end) {
+        max = Math.max(max, Math.min(height[start], height[end]) * (end - start))
+        if (height[start] < height[end]) start++ else end--
+    }
+
+    return max
+}
