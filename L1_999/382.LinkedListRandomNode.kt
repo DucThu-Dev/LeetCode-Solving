@@ -6,9 +6,9 @@ class LinkedListRandomNode(val head: ListNode?) {
         while (curr != null) {
             if (Math.random() < 1.0 / scope) {
                 chosenValue = curr.`val`
-                scope++
-                curr = curr.next
             }
+            scope++
+            curr = curr.next
         }
         return chosenValue
     }
