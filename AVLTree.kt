@@ -1,52 +1,55 @@
 fun main() {
-    val avlTree = AVLTree().apply {
+    val tree = AVLTree().apply {
         insert(1)
+        insert(100)
+        insert(23)
+        insert(54)
+        insert(234)
         insert(4)
-        insert(7)
-        insert(2)
-        insert(3)
-        insert(5)
-        insert(6)
+        insert(43)
+        insert(8)
     }
 
-    println(avlTree)
+    println(tree)
 }
 
 class AVLTree {
-    var root: AVLNode? = null
+    var root: AVLNode? = null;
 
     fun insert(value: Int) {
-        root = insert(value, root)
+        root = insert(root, value)
     }
 
-    fun insert(value: Int, node: AVLNode?): AVLNode {
+    fun insert(node: AVLNode?, value: Int): AVLNode {
         node ?: return AVLNode(value)
-        if (value >= node.value) {
-            node.right = insert(value, node.right)
+        if (node.value.compareTo(value) > 0) {
+            node.left = insert(node.left, value)
         } else {
-            node.left = insert(value, node.left)
+            node.right = insert(node.right, value)
         }
 
         val balanceNode = balance(node)
         balanceNode.height = Math.max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
+
         return balanceNode
     }
 
     fun balance(node: AVLNode): AVLNode {
         return when (node.balanceFactor) {
+
             2 -> {
-                if (node.left?.balanceFactor == -1) {
-                    return rotateLeftRight(node)
+                if (node.left!!.balanceFactor == -1) {
+                    leftRightRotate(node)
                 } else {
-                    return rotateRight(node)
+                    rightRotate(node)
                 }
             }
 
             -2 -> {
-                if (node.right?.balanceFactor == 1) {
-                    return rotateRightLeft(node)
+                if (node.right!!.balanceFactor == 1) {
+                    rightLeftRotate(node)
                 } else {
-                    return rotateLeft(node)
+                    leftRotate(node)
                 }
             }
 
@@ -54,7 +57,7 @@ class AVLTree {
         }
     }
 
-    fun rotateLeft(node: AVLNode): AVLNode {
+    fun leftRotate(node: AVLNode): AVLNode {
         val pivot = node.right!!
         pivot.left = node
         node.right = null
@@ -65,26 +68,27 @@ class AVLTree {
         return pivot
     }
 
-    fun rotateRight(node: AVLNode): AVLNode {
+    fun rightRotate(node: AVLNode): AVLNode {
         val pivot = node.left!!
         pivot.right = node
         node.left = null
 
         node.height = Math.max(node.leftHeight, node.rightHeight) + 1
         pivot.height = Math.max(pivot.leftHeight, pivot.rightHeight) + 1
+
         return pivot
     }
 
-    fun rotateLeftRight(node: AVLNode): AVLNode {
+    fun leftRightRotate(node: AVLNode): AVLNode {
         val leftNode = node.left ?: return node
-        node.left = rotateLeft(leftNode)
-        return rotateRight(node)
+        node.left = leftRotate(leftNode)
+        return rightRotate(node)
     }
 
-    fun rotateRightLeft(node: AVLNode): AVLNode {
+    fun rightLeftRotate(node: AVLNode): AVLNode {
         val rightNode = node.right ?: return node
-        node.right = rotateLeft(rightNode)
-        return rotateLeft(node)
+        node.right = rightRotate(rightNode)
+        return leftRotate(node)
     }
 
     override fun toString(): String {
@@ -95,7 +99,7 @@ class AVLTree {
 class AVLNode(var value: Int) {
     var left: AVLNode? = null
     var right: AVLNode? = null
-    var height = 0
+    var height: Int = 0
 
     val leftHeight: Int
         get() = left?.height ?: -1
@@ -106,11 +110,8 @@ class AVLNode(var value: Int) {
     val balanceFactor: Int
         get() = leftHeight - rightHeight
 
-    fun printNode() {
-        print("[left: (${left?.printNode() ?: "null"})] $value right[(${right?.printNode() ?: "null"})]")
-    }
-
     override fun toString() = diagram(this)
+
     private fun diagram(
         node: AVLNode?,
         top: String = "",
