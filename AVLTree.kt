@@ -9,33 +9,22 @@ fun main() {
         insert(6)
     }
 
-    println(avlTree.toString())
+    println(avlTree)
 }
 
 class AVLTree {
     var root: AVLNode? = null
 
     fun insert(value: Int) {
-        if (root == null) {
-            root = AVLNode(value)
-        } else {
-            insert(value, root!!)
-        }
+        root = insert(value, root)
     }
 
-    fun insert(value: Int, node: AVLNode): AVLNode {
+    fun insert(value: Int, node: AVLNode?): AVLNode {
+        node ?: return AVLNode(value)
         if (value >= node.value) {
-            if (node.right != null) {
-                node.right = insert(value, node.right!!)
-            } else {
-                node.right = AVLNode(value)
-            }
+            node.right = insert(value, node.right)
         } else {
-            if (node.left != null) {
-                node.left = insert(value, node.left!!)
-            } else {
-                node.left = AVLNode(value)
-            }
+            node.left = insert(value, node.left)
         }
 
         val balanceNode = balance(node)
@@ -97,6 +86,10 @@ class AVLTree {
         node.right = rotateLeft(rightNode)
         return rotateLeft(node)
     }
+
+    override fun toString(): String {
+        return root.toString()
+    }
 }
 
 class AVLNode(var value: Int) {
@@ -112,4 +105,28 @@ class AVLNode(var value: Int) {
 
     val balanceFactor: Int
         get() = leftHeight - rightHeight
+
+    fun printNode() {
+        print("[left: (${left?.printNode() ?: "null"})] $value right[(${right?.printNode() ?: "null"})]")
+    }
+
+    override fun toString() = diagram(this)
+    private fun diagram(
+        node: AVLNode?,
+        top: String = "",
+        root: String = "",
+        bottom: String = ""
+    ): String {
+        return node?.let {
+            if (node.left == null && node.right == null) {
+                "$root${node.value}\n"
+            } else {
+                diagram(node.right, "$top ", "$top┌──", "$top│ ") +
+                        root + "${node.value}\n" + diagram(
+                    node.left,
+                    "$bottom│ ", "$bottom└──", "$bottom "
+                )
+            }
+        } ?: "${root}null\n"
+    }
 }
