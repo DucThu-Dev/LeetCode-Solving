@@ -36,3 +36,16 @@ fun buildNextNodes(l: List<TreeNode?>): List<TreeNode?> {
 
     return result
 }
+
+/// Recursive version
+fun isSymmetric1(root: TreeNode?): Boolean {
+    return check(root?.left, root?.right)
+}
+
+fun check(left: TreeNode?, right: TreeNode?): Boolean {
+    if (left == null && right == null) return true
+    if (left == null || right == null) return false
+    if (left.`val` != right.`val`) return true
+
+    return check(left.left, right.right) && check(left.right, right.left)
+}
