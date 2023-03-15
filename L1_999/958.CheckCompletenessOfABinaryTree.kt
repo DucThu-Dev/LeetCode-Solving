@@ -42,3 +42,22 @@ fun validateLastLevel(lastLevelNodes: List<TreeNode?>): Boolean {
     }
     return subNodes.all { it == null }
 }
+
+
+/// Cleaner
+fun isCompleteTreeCleaner(root: TreeNode?): Boolean {
+    if (root == null) return true
+    val nodes = mutableListOf<TreeNode?>(root)
+    var index = 0
+    while (nodes[index] != null) {
+        nodes.add(nodes[index]?.left)
+        nodes.add(nodes[index]?.right)
+        index++
+    }
+
+    for (i in index + 1..nodes.lastIndex) {
+        if (nodes[i] != null) return false
+    }
+
+    return true
+}
