@@ -1,11 +1,11 @@
 fun main() {
-//    val trie = Trie<Char>()
+//    val trie = Triee<Char>()
 //    trie.insert("cute")
 //    if (trie.contains("cute")) {
 //        println("cute is in the trie")
 //    }
 
-    val trie = Trie<Char>().apply {
+    val trie = Triee<Char>().apply {
         insert("car")
         insert("card")
         insert("care")
@@ -23,14 +23,14 @@ fun main() {
     println(prefixedWithCare)
 }
 
-class Trie<Key> {
-    private val root = TrieNode<Key>(null, null)
+class Triee<Key> {
+    private val root = TrieeNode<Key>(null, null)
 
     fun insert(list: List<Key>) {
         var current = root
         list.forEach { element ->
             if (current.children[element] == null) {
-                current.children[element] = TrieNode(element, current)
+                current.children[element] = TrieeNode(element, current)
             }
             current = current.children[element]!!
         }
@@ -78,7 +78,7 @@ class Trie<Key> {
         return collections(prefix, current)
     }
 
-    fun collections(prefix: List<Key>, node: TrieNode<Key>?): List<List<Key>> {
+    fun collections(prefix: List<Key>, node: TrieeNode<Key>?): List<List<Key>> {
         val results = mutableListOf<List<Key>>()
 
         if (node?.isTerminating == true) {
@@ -93,25 +93,25 @@ class Trie<Key> {
     }
 }
 
-class TrieNode<Key>(var key: Key?, var parent: TrieNode<Key>?) {
+class TrieeNode<Key>(var key: Key?, var parent: TrieeNode<Key>?) {
 
-    val children: HashMap<Key, TrieNode<Key>> = HashMap()
+    val children: HashMap<Key, TrieeNode<Key>> = HashMap()
 
     var isTerminating = false
 }
 
-fun Trie<Char>.insert(string: String) {
+fun Triee<Char>.insert(string: String) {
     insert(string.toList())
 }
 
-fun Trie<Char>.contains(string: String): Boolean {
+fun Triee<Char>.contains(string: String): Boolean {
     return contains(string.toList())
 }
 
-fun Trie<Char>.remove(string: String) {
+fun Triee<Char>.remove(string: String) {
     remove(string.toList())
 }
 
-fun Trie<Char>.collections(prefix: String): List<String> {
+fun Triee<Char>.collections(prefix: String): List<String> {
     return collections(prefix.toList()).map { it.joinToString(separator = "") }
 }
