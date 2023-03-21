@@ -32,3 +32,19 @@ fun zeroFilledSubarray(nums: IntArray): Long {
 
     return total
 }
+
+/// Better solution
+fun zeroFilledSubarrayBetter(nums: IntArray): Long {
+    var total = 0L
+    var count = 0L
+    for (n in nums) {
+        if (n == 0) {
+            count++
+            total += count
+        } else {
+            count = 0
+        }
+    }
+
+    return total
+}
