@@ -16,19 +16,26 @@ fun minScore(n: Int, roads: Array<IntArray>): Int {
     }
 
     var minScore: Int = Int.MAX_VALUE
-    val passedCities = mutableMapOf<Int, Boolean>()
+    val passedCities: MutableMap<Int, MutableMap<Int, Boolean>> = mutableMapOf()
 
-    fun traversal(cities: Map<Int, Int>) {
+    fun traversal(start: Int, cities: Map<Int, Int>) {
         for (entry in cities) {
-            if (passedCities[entry.key] == null || passedCities[entry.key] == false) {
+            if (passedCities[start]?.get(entry.key) == null) {
                 minScore = entry.value.coerceAtMost(minScore)
-                passedCities[entry.key] = passedCities[entry.key] != null
-                traversal(map[entry.key]!!)
+                val result1 = passedCities.getOrElse(start) {
+                    mutableMapOf(entry.key to true).also { passedCities[start] = it }
+                }
+                result1.computeIfAbsent(entry.key) { true }
+                val result2 = passedCities.getOrElse(entry.key) {
+                    mutableMapOf(start to true).also { passedCities[entry.key] = it }
+                }
+                result2.computeIfAbsent(entry.key) { true }
+                traversal(entry.key, map[entry.key]!!)
             }
         }
     }
 
-    traversal(map[1]!!)
+    traversal(1, map[1]!!)
 
     return minScore
 }
