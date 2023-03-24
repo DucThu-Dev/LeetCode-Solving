@@ -30,3 +30,33 @@ fun minReorder(n: Int, connections: Array<IntArray>): Int {
     bfs(0)
     return result
 }
+
+fun minReorderPractice(n: Int, connections: Array<IntArray>): Int {
+    val map: MutableMap<Int, MutableMap<Int, Int>> = mutableMapOf()
+    for (i in 0 until n) map[i] = mutableMapOf()
+
+    for (c in connections) {
+        map[c[0]]!![c[1]] = 1
+        map[c[1]]!![c[0]] = 0
+    }
+
+    var result = 0
+
+    fun bfs(node: Int) {
+        val queue = mutableListOf<Int>(node)
+        val visited = MutableList(n) { false }
+        visited[0] = true
+        while (queue.isNotEmpty()) {
+            val curNode = queue.removeAt(0)
+            for (p in map[curNode]!!) {
+                if (visited[p.key]) continue
+                visited[p.key] = true
+                result += p.value
+                queue.add(p.key)
+            }
+        }
+    }
+
+    bfs(0)
+    return result
+}
