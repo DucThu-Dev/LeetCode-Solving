@@ -40,7 +40,3 @@ fun makeConnected(n: Int, connections: Array<IntArray>): Int {
 
     return neededTimes - 1
 }
-
-fun main() {
-    makeConnected(6, arrayOf(intArrayOf(0, 1), intArrayOf(0, 2), intArrayOf(0, 3), intArrayOf(1, 2), intArrayOf(1, 3)))
-}
