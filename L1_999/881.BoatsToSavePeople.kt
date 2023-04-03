@@ -15,14 +15,19 @@ fun main() {
     numRescueBoats(intArrayOf(3, 2, 2, 1), 3)
 }
 
-fun MutableList<Int>.removeLast(): Int {
-    val last = last()
-    removeAt(lastIndex)
-    return last
-}
-
-fun MutableList<Int>.removeFirst(): Int {
-    val first = first()
-    removeAt(0)
-    return first
+fun numRescueBoatsHighest(people: IntArray, limit: Int): Int {
+    people.sort()
+    var count = 0
+    var i = 0
+    var j = people.lastIndex
+    while (i <= j) {
+        if (people[i] + people[j] > limit) {
+            j--
+        } else {
+            i++
+            j--
+        }
+        count++
+    }
+    return count
 }
