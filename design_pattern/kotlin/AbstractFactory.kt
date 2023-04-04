@@ -44,7 +44,8 @@ class MacFactory : GUIFactory {
 }
 
 fun main() {
-    val factory: GUIFactory = WinFactory()
+    val configOS = "MAC"
+    val factory: GUIFactory = if (configOS == "MAC") MacFactory() else WinFactory()
     val button = factory.createButton()
     val checkBox = factory.createCheckBox()
 }
