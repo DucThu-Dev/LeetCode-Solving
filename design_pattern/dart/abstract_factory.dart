@@ -29,7 +29,7 @@ class MacFactory implements GUIFactory {
   Button createButton() => MacButton();
 
   @override
-  CheckBox createCheckBox() => MacCheckBox()
+  CheckBox createCheckBox() => MacCheckBox();
 }
 
 void main() {
