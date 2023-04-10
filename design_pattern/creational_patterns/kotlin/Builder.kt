@@ -1,4 +1,4 @@
-package design_pattern.kotlin
+package design_pattern.creational_patterns.kotlin
 
 data class Car(val brand: String, val model: String, val color: String, val engine: String, val transmission: String)
 

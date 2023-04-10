@@ -1,4 +1,4 @@
-package design_pattern.kotlin
+package design_pattern.creational_patterns.kotlin
 
 abstract class Animal {
     abstract fun makeNoise()

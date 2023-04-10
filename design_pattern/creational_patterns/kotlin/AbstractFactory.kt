@@ -1,4 +1,4 @@
-package design_pattern.kotlin
+package design_pattern.creational_patterns.kotlin
 
 /**
  * [Source](https://refactoring.guru/design-patterns/abstract-factory)
