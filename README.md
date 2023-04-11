@@ -1,4 +1,4 @@
-# My Daily LeetCode Solving Repository
+# My Daily LeetCode Solving Repository And More
 <div align="center">
 <img src="assets/leetcode.png" alt="LeetCode"  width="160"  height="160">
 </div>
@@ -9,6 +9,9 @@ with others. Checkout [My LeetCode Profile][leetcode_url] as well.
 
 I solve a problem or create a new piece of code every day and save it to this repository. By doing this, I can improve
 my coding skills, learn from others, and collaborate on coding projects.
+
+Recently, I used this as a space to update and practices other knowledge as well, such as data structure and design 
+pattern, which may be write in Kotlin or Dart.
 
 Feel free to browse the repository and use the code for your own projects. If you have any questions, comments, or
 suggestions, please feel free to reach out to me through [here][github_profile].
