@@ -27,3 +27,5 @@ fun shipWithinDays(weights: IntArray, days: Int): Int {
 
     return lWeight
 }
+
+fun IntArray.max(): Int = maxOf { value -> value }

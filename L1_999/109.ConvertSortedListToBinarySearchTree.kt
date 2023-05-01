@@ -1,5 +1,3 @@
-import com.sun.source.tree.Tree
-
 fun sortedListToBST(head: ListNode?): TreeNode? {
     head ?: return null
     head.next ?: return TreeNode(head.`val`)
