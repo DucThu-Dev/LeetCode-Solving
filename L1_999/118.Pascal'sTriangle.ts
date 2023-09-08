@@ -16,3 +16,17 @@ function generate(numRows: number): number[][] {
 
   return result;
 };
+
+function generateTopSolution(numRows: number): number[][] {
+  const result = [[1]];
+  for (let i = 1; i < numRows; i++) {
+    const currentRow: number[] = [1];
+    const previousRow: number[] = result[i - 1];
+    for (let y = 1; y < previousRow.length; y++) {
+      currentRow.push(previousRow[y - 1] + previousRow[y]);
+    }
+    currentRow.push(1);
+    result.push(currentRow);
+  }
+  return result;
+};
