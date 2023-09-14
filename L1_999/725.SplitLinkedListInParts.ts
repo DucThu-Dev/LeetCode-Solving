@@ -48,3 +48,36 @@ function splitListToParts(head: ListNode | null, k: number): Array<ListNode | nu
 
   return result;
 };
+
+/// CLONED FROM EFFECTIVE SPEED
+function splitListToPartsCloned(head: ListNode | null, k: number): Array<ListNode | null> {
+  if (head === null) return new Array(k).fill(null);
+  const result = new Array<ListNode | null>(k).fill(null);
+
+  let node = head;
+  let length = 1;
+  while (node?.next != null) {
+    length++;
+    node = node.next;
+  }
+
+  const min = (length / k) >> 0;
+  const remain = length % k;
+
+  let currentNode: ListNode | null = head;
+
+  for (let i = 0; i < k; i++) {
+    result[i] = currentNode;
+    let nodeCount = min + +(i < remain);
+
+    for (let y = 0; y < nodeCount - 1; y++) {
+      currentNode = currentNode?.next ?? null;
+    }
+
+    let tail = currentNode;
+    currentNode = currentNode?.next ?? null;
+    if (tail != null) tail!.next = null;
+  }
+
+  return result;
+};
