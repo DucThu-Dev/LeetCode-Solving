@@ -50,7 +50,7 @@ function splitListToParts(head: ListNode | null, k: number): Array<ListNode | nu
 };
 
 /// CLONED FROM EFFECTIVE SPEED
-function splitListToPartsCloned(head: ListNode | null, k: number): Array<ListNode | null> {
+function splitListToPartsClonedSpeed(head: ListNode | null, k: number): Array<ListNode | null> {
   if (head === null) return new Array(k).fill(null);
   const result = new Array<ListNode | null>(k).fill(null);
 
