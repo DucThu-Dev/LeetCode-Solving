@@ -41,3 +41,28 @@ function copyRandomList(head: ListNode | null): ListNode | null {
 
   return cloneMap.get(0)!;
 };
+
+function copyRandomListCloned(head: ListNode | null): ListNode | null {
+  if (!head) return null;
+  const map = new Map<ListNode, ListNode>();
+  let currentNode: ListNode | null = head;
+  let remNode: ListNode | null = null;
+  while (currentNode) {
+    let clonedNode = new ListNode(currentNode.val);
+    map.set(currentNode, clonedNode);
+    if (remNode) remNode.next = clonedNode;
+    remNode = clonedNode;
+    currentNode = currentNode.next;
+  }
+
+  currentNode = head;
+  remNode = null;
+  while (currentNode) {
+    if (currentNode.random) {
+      map.get(currentNode)!.random = map.get(currentNode.random!)!;
+    }
+    currentNode = currentNode.next;
+  }
+
+  return map.get(head)!;
+};
