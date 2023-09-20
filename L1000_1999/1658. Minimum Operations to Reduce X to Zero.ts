@@ -1,3 +1,37 @@
+/// Cloned solution.
+function minOperations(nums: number[], x: number): number {
+  let target: number = -x;
+  const n: number = nums.length;
+
+  for (const num of nums) {
+    target += num;
+  }
+
+  if (target === 0) {
+    return n;
+  }
+
+  let maxLen: number = 0;
+  let curSum: number = 0;
+  let left: number = 0;
+
+  for (let right: number = 0; right < n; ++right) {
+    curSum += nums[right];
+
+    while (left <= right && curSum > target) {
+      curSum -= nums[left];
+      left++;
+    }
+
+    if (curSum === target) {
+      maxLen = Math.max(maxLen, right - left + 1);
+    }
+  }
+
+  return maxLen ? n - maxLen : -1;
+}
+
+
 /// TLE
 function minOperations2(nums: number[], x: number): number {
   if (!nums.length) return x === 0 ? 0 : -1;
