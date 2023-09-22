@@ -1,7 +1,8 @@
 function isSubsequence(s: string, t: string): boolean {
-  if (s.length === 0) return true;
-  if (s.length === t.length) return s === t;
   const nt = t.length, ns = s.length;
+  if (ns === 0) return true;
+  if (ns === nt) return s === t;
+  if (ns > nt) return false;
   let pt = 0;
   let ps = 0;
   while (pt < nt) {
