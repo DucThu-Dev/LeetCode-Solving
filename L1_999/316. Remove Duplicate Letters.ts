@@ -57,3 +57,16 @@ function removeDuplicateLettersCloned(s: string): string {
   }
   return ans;
 };
+
+function removeDuplicateLettersBestSolution(s: string): string {
+  let answerStack: Array<string> = [];
+  for (let i = 0; i < s.length; i++) {
+    if (answerStack.indexOf(s[i]) > -1) continue;
+    while (answerStack.length && answerStack[answerStack.length - 1].charCodeAt(0) > s.charCodeAt(i) && s.indexOf(answerStack[answerStack.length - 1], i) > -1) {
+      answerStack.pop();
+    }
+    answerStack.push(s[i]);
+  }
+
+  return answerStack.join("");
+}
