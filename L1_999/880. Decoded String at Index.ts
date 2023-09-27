@@ -1,3 +1,30 @@
+function decodeAtIndex(s: string, k: number): string {
+  let currentLength = 0;
+  let currentIndex = 0;
+  while (currentIndex < k) {
+    if (/\d/.test(s[currentIndex])) {
+      currentLength *= parseInt(s[currentIndex]);
+    } else {
+      currentLength++;
+    }
+    currentIndex++;
+  }
+
+  for (let i = currentIndex - 1; i >= 0; i--) {
+    if (/\d/.test(s[i])) {
+      currentLength /= parseInt(s[i])
+      k %= currentLength;
+    } else {
+      if (k === currentLength || k === 0) {
+        return s[i];
+      }
+
+      currentLength--;
+    }
+  }
+  return '';
+}
+
 // Out of memory
 function decodeAtIndexOriginal(s: string, k: number): string {
   let tape = '';
