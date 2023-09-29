@@ -11,3 +11,14 @@ function isMonotonic(nums: number[]): boolean {
   }
   return true;
 };
+
+function isMonotonicBest(nums: number[]): boolean {
+  let incr = true;
+  let desc = true;
+  for (let i = 0; i < nums.length - 1; i++) {
+    incr = incr && nums[i] <= nums[i + 1];
+    desc = desc && nums[i] >= nums[i + 1];
+  }
+
+  return incr || desc;
+}
