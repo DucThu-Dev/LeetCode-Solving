@@ -14,3 +14,9 @@ function reverseWords(s: string): string {
   result += rem;
   return result;
 };
+
+function reverseWordsCloned(s: string): string {
+  return s.split(' ').map((word) => {
+    return word.split('').reverse().join('');
+  }).join(' ');
+}
