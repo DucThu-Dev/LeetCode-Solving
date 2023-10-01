@@ -1,20 +1,16 @@
 function reverseWords(s: string): string {
-  const stack = new Array<string>();
-  let result = ' ';
+  let rem = '';
+  let result = '';
   for (let w of s) {
-    if (w === '') {
-      while (stack.length) {
-        result += stack.pop()!;
-      }
+    if (w === ' ') {
+      result += rem;
+      rem = '';
       result += w;
     } else {
-      stack.push(w);
+      rem = w + rem;
     }
   }
 
-  while (stack.length) {
-    result += stack.pop()!;
-  }
-
+  result += rem;
   return result;
 };
