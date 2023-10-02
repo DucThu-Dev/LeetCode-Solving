@@ -48,3 +48,27 @@ function winnerOfGame2(colors: string): boolean {
 
   return moveA > moveB;
 };
+
+function winnerOfGameBestSolution(colors: string): boolean {
+  let streakA = 0;
+  let streakB = 0;
+  let moveA = 0;
+  let moveB = 0;
+
+  for (let i = 0; i < colors.length; i++) {
+    if (colors[i] === 'A') {
+      streakA++;
+      streakB = 0;
+      if (streakA > 2) {
+        moveA++;
+      }
+    } else {
+      streakB++;
+      streakA = 0;
+      if (streakB > 2) {
+        moveB++;
+      }
+    }
+  }
+  return moveA > moveB;
+}
