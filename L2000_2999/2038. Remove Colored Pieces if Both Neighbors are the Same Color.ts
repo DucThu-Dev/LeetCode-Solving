@@ -30,13 +30,14 @@ function winnerOfGame(colors: string): boolean {
   return !turnA;
 };
 
+/// Self did.
 function winnerOfGame2(colors: string): boolean {
   let moveA = 0;
   let moveB = 0;
   let lastWord = 'A';
   let rem = 0;
-  for (let c of colors) {
-    if (c === lastWord) {
+  for (let i = 0; i < colors.length; i++) {
+    if (colors[i] === lastWord) {
       rem++;
     } else {
       if (rem > 2) { if (lastWord === 'A') moveA += rem - 2; else moveB += rem - 2; }
