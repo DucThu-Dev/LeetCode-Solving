@@ -39,3 +39,16 @@ function integerBreak2(n: number): number {
   if (remain === 2) return Math.pow(3, countOf3) * 2
   return Math.pow(3, countOf3);
 }
+
+/// Best solution
+function integerBreak(n: number): number {
+  const dp = new Array(n + 1).fill(0);
+
+  for (let i = 2; i <= n; i++) {
+      for (let j = 1; j < i; j++) {
+          dp[i] = Math.max(dp[i], j * Math.max(i - j, dp[i - j]));
+      }
+  }
+
+  return dp[n];
+}
