@@ -12,3 +12,13 @@ function getRow(rowIndex: number): number[] {
 
   return triangle[rowIndex];
 };
+
+function getRowRecursive(rowIndex: number): number[] {
+  if (rowIndex === 0) return [1]
+
+  const lastRow = getRow(rowIndex - 1);
+  return Array(rowIndex + 1).fill(1).map((value, index) => {
+    if (index === 0 || index === rowIndex) return 1;
+    return lastRow[index - 1] + lastRow[index];
+  });
+}
