@@ -37,7 +37,7 @@ function averageOfSubtree(root: TreeNode | null): number {
     let resultLeft = traverse(node?.left);
     let resultRight = traverse(node?.right);
     let nodeCount = resultLeft.nodeCount + resultRight.nodeCount + 1;
-    let sum = resultLeft.sum + resultRight.sum + 1;
+    let sum = resultLeft.sum + resultRight.sum + node.val;
     let avg = (sum) / (nodeCount) >> 0;
     if (node?.val === avg) result++;
     return {
