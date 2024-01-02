@@ -20,3 +20,19 @@ function findMatrix(nums: number[]): number[][] {
 
   return result;
 };
+
+function findMatrixBestSolution(nums: number[]): number[][] {
+  let result: Array<Array<number>> = [[]]
+
+  for (let i = 0; i < nums.length; i++) {
+    let row = 0;
+    while (result[row].includes(nums[i])) {
+      row++;
+      if (row > result.length - 1) {
+        result.push([]);
+      }
+    }
+    result[row].push(nums[i]);
+  }
+  return result;
+};
