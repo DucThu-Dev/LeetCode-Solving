@@ -39,3 +39,22 @@ function minOperations(nums: number[]): number {
 
   return result;
 };
+
+function minOperationsBestSpeed(nums: number[]): number {
+  const map = new Map<number, number>();
+  nums.forEach((num) => {
+    if (!map.has(num)) {
+      map.set(num, 1)
+    } else {
+      map.set(num, map.get(num)! + 1)
+    }
+  });
+
+  let result = 0;
+  for (let [key, value] of map) {
+    if (value == 1) return -1;
+    if (value % 3 === 0) result += (value / 3 >> 0)
+    else result += (value / 3 >> 0) + 1
+  }
+  return result;
+}
