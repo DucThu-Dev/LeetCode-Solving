@@ -19,3 +19,8 @@ function deleteNode(node: ListNode | null): void {
     node.next = null;
   }
 };
+
+function deleteNodeBetter(node: ListNode | null): void {
+  node!.val = node!.next!.val!
+  node!.next = node!.next!.next
+};
