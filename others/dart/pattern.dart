@@ -53,6 +53,19 @@ void main(List<String> args) {
   final myPoint = ChildPoint(10, 20);
   final MyPoint(:y, :x) = myPoint;
   print('My point is $x, $y');
+
+  /// TEST 8
+  final pair = (22, 18);
+  switch (pair) {
+    case (var a, var b) when a < b:
+      print('Sum of a and b: ${a + b}');
+      break;
+    case (var a, var b) when a > b:
+      print('Sub of a and b: ${a - b}');
+      break;
+    default:
+      print('No join');
+  }
 }
 
 class MyPoint {
