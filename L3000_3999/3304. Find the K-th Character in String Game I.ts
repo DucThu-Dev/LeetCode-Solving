@@ -1,4 +1,4 @@
-function kthCharacter(k: number): string {
+function minekthCharacter(k: number): string {
   let word = "a";
 
   while (word.length < k) {
@@ -16,5 +16,18 @@ function kthCharacter(k: number): string {
     word = `${word}${nextChunk}`;
   }
 
+  return word[k - 1];
+}
+
+function kthCharacter(k: number): string {
+  let word = ["a"];
+  while (word.length < k) {
+    const len = word.length;
+    for (let i = 0; i < len; ++i) {
+      let nextCode = word[i].charCodeAt(0) + 1;
+      if (nextCode >= 123) nextCode = 97;
+      word.push(String.fromCharCode(nextCode));
+    }
+  }
   return word[k - 1];
 }
