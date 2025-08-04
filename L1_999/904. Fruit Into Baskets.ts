@@ -7,8 +7,15 @@ function totalFruit(fruits: number[]): number {
 
   let max = Number.NEGATIVE_INFINITY;
 
+  let lastFruit = fruits[0];
+  let lastCount = 0;
+
   while (right < n) {
     const fruit = fruits[right];
+    let needReset = false;
+    if (lastFruit === fruit) lastCount++;
+    else needReset = true;
+
     if (map.size < 2 || map.has(fruit)) {
       map.set(fruit, (map.get(fruit) ?? 0) + 1);
     } else {
@@ -17,16 +24,14 @@ function totalFruit(fruits: number[]): number {
         Array.from(map.values()).reduce((prev, cur) => prev + cur, 0)
       );
 
-      const leftFruit = fruits[right - 1];
-      let left = right - 1;
-      let leftCount = 0;
-      while (left > 0 && fruits[left] === leftFruit) {
-        leftCount++;
-        left--;
-      }
       map = new Map<number, number>();
-      map.set(leftFruit, leftCount);
+      map.set(lastFruit, lastCount);
       map.set(fruits[right], 1);
+    }
+
+    if (needReset) {
+      lastFruit = fruit;
+      lastCount = 1;
     }
 
     right++;
