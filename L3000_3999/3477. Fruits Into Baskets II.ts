@@ -21,8 +21,8 @@ function numOfUnplacedFruits(fruits: number[], baskets: number[]): number {
           } else {
             return count;
           }
-          break;
         }
+        break;
       }
     }
 
