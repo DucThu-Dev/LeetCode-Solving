@@ -12,9 +12,9 @@ class Solution {
         int result = 0;
         for (int i = 0; i < n - 2; i++) {
             int sA = squares.get(i);
-            for (int j = 1; j < n - 1; j++) {
+            for (int j = i + 1; j < n - 1; j++) {
                 int sB = squares.get(j);
-                for (int g = 2; g < n; g++) {
+                for (int g = i + 2; g < n; g++) {
                     int sC = squares.get(g);
                     if (sA + sB == sC) {
                         result += 2;
