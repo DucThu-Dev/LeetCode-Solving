@@ -78,9 +78,8 @@ class Solution {
             }
         }
 
-        logQueue(eventQueue);
-
-        for (Event event : eventQueue) {
+        while (!eventQueue.isEmpty()) {
+            Event event = eventQueue.poll();
             int timeStamp = event.timestamp;
             for (int i = 0; i < numberOfUsers; i++) {
                 if (timeStampAvailable[i] > 0 && timeStamp >= timeStampAvailable[i]) {
@@ -113,11 +112,5 @@ class Solution {
         }
 
         return mentions;
-    }
-
-    void logQueue(PriorityQueue<Event> queue) {
-        for (Event item : queue) {
-            System.out.println(item.toString());
-        }
     }
 }
