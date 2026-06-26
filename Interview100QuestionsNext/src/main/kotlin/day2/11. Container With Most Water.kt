@@ -8,7 +8,7 @@ class Solution {
 
         while (left < right) {
             max = max.coerceAtLeast((right - left) * height[left].coerceAtMost(height[right]))
-            if(height[left] < height[right]) {
+            if (height[left] < height[right]) {
                 left++
             } else {
                 right--
@@ -18,3 +18,4 @@ class Solution {
         return max
     }
 }
+

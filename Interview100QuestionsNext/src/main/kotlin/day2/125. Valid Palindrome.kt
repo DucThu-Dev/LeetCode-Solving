@@ -10,12 +10,12 @@ class Solution {
             }
         }
 
-        if(chars.isEmpty() || chars.size == 1) return true
+        if (chars.isEmpty() || chars.size == 1) return true
 
         var left = 0
         var right = chars.size - 1
         do {
-            if(chars[left] != chars[right]) return false
+            if (chars[left] != chars[right]) return false
             left++
             right--
         } while (left < right)
@@ -27,18 +27,18 @@ class Solution {
 class Solution {
     fun isPalindrome(s: String): Boolean {
         fun checkPalindrome(left: Int, right: Int): Boolean {
-            if(left >= right) return true
+            if (left >= right) return true
 
-            if(!s[left].isLetterOrDigit()) {
+            if (!s[left].isLetterOrDigit()) {
                 return checkPalindrome(left + 1, right)
             }
 
-            if(!s[right].isLetterOrDigit()) {
+            if (!s[right].isLetterOrDigit()) {
                 return checkPalindrome(left, right - 1)
             }
 
 
-            if(!s[left].equals(s[right], ignoreCase = true)) return false
+            if (!s[left].equals(s[right], ignoreCase = true)) return false
 
             return checkPalindrome(left + 1, right - 1)
         }

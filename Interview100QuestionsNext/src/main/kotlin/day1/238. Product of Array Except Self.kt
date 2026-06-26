@@ -50,7 +50,7 @@ class Solution {
 
         if (zeroCount == 1) {
             return IntArray(nums.size) { i ->
-                if(i == zeroIndex) acc else 0
+                if (i == zeroIndex) acc else 0
             }
         }
 
@@ -59,5 +59,29 @@ class Solution {
             output[i] = acc / nums[i]
         }
         return output
+    }
+}
+
+class Solution {
+    fun productExceptSelf(nums: IntArray): IntArray {
+        var product = 1
+        var zeroCount = 0
+        var zeroIndex = -1
+        for (index in nums.indices) {
+            if (nums[index] == 0) {
+                zeroCount++
+                zeroIndex = index
+                if (zeroCount >= 2)
+                    return IntArray(nums.size) { 0 }
+            } else {
+                product *= nums[index]
+            }
+        }
+
+        if (zeroCount == 1) {
+            return IntArray(nums.size) { if (it == zeroIndex) product else 0 }
+        }
+
+        return IntArray(nums.size) { product / nums[it] }
     }
 }
